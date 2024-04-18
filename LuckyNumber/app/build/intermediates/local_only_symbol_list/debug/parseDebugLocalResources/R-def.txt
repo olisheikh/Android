@@ -1,0 +1,26 @@
+R_DEF: Internal format may change without notice
+local
+color black
+color white
+drawable background
+drawable background2
+drawable dice
+drawable ic_launcher_background
+drawable ic_launcher_foreground
+id enterYourNameEdTxtView
+id imgViewId
+id main
+id msgTxtView
+id shareBtn
+id showNumTxtView
+id welcomeTxtView
+id wishBtn
+layout activity_main
+layout activity_share
+mipmap ic_launcher
+mipmap ic_launcher_round
+string app_name
+style Base.Theme.LuckyNumber
+style Theme.LuckyNumber
+xml backup_rules
+xml data_extraction_rules

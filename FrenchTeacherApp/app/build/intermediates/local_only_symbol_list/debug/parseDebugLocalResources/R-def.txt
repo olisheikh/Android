@@ -1,0 +1,26 @@
+R_DEF: Internal format may change without notice
+local
+color black
+color white
+drawable ic_launcher_background
+drawable ic_launcher_foreground
+drawable wallpaper
+id blackBtn
+id greenBtn
+id main
+id purpleBtn
+id redBtn
+id yellowBtn
+layout activity_main
+mipmap ic_launcher
+mipmap ic_launcher_round
+raw black
+raw green
+raw purple
+raw red
+raw yellow
+string app_name
+style Base.Theme.FrenchTeacherApp
+style Theme.FrenchTeacherApp
+xml backup_rules
+xml data_extraction_rules
