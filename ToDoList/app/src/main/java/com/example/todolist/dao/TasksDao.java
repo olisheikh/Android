@@ -12,6 +12,7 @@ import com.example.todolist.entity.TasksEntity;
 
 import java.util.List;
 
+import kotlinx.coroutines.scheduling.Task;
 
 
 @Dao
@@ -27,4 +28,7 @@ public interface TasksDao {
 
     @Update
     void updateTask(TasksEntity task);
+
+    @Query("select * from task_list where id = :taskId")
+    TasksEntity getTaskById(int taskId);
 }
