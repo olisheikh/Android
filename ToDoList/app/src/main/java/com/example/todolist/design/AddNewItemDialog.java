@@ -41,7 +41,36 @@ public class AddNewItemDialog {
         dialog.show();
     }
 
-    public static void updateText(TasksEntity tasksEntity) {
+    public static void updateText(Context context, TaskDBHelper taskDBHelper, TasksEntity tasksEntity) {
+        Dialog dialog = new Dialog(context);
+        dialog.setContentView(R.layout.add_new_item_dialog);
 
+        Button updateBtn, cancelBtn;
+        EditText editTxt;
+
+        updateBtn = dialog.findViewById(R.id.saveDialogBtn);
+        cancelBtn = dialog.findViewById(R.id.cancelDialogBtn);
+        editTxt = dialog.findViewById(R.id.addNewItemInput);
+
+        updateBtn.setText("Update");
+        editTxt.setText(tasksEntity.getTitle());
+        updateBtn.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               String newData = editTxt.getText().toString();
+               tasksEntity.setTitle(newData);
+               taskDBHelper.tasksDao().updateTask(tasksEntity);
+               dialog.dismiss();
+           }
+        });
+
+        cancelBtn.setOnClickListener(new View.OnClickListener(){
+           @Override
+           public void onClick(View v) {
+               dialog.dismiss();
+           }
+        });
+
+        dialog.show();
     }
 }

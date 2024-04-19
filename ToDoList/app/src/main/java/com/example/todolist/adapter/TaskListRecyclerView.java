@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
@@ -58,8 +59,7 @@ public class TaskListRecyclerView extends RecyclerView.Adapter<TaskListRecyclerV
             viewHolder.edImg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    AddNewItemDialog.showDialog(context, taskDBHelper);
-
+                    AddNewItemDialog.updateText(context, taskDBHelper, tasksEntity);
                 }
             });
         }
