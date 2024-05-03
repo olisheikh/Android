@@ -1,4 +1,4 @@
-package com.example.inventorymanagement;
+package com.example.inventorymanagement.view;
 
 import android.os.Bundle;
 
@@ -6,8 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.inventorymanagement.R;
 import com.example.inventorymanagement.adapter.CustomRecycleAdapter;
-import com.example.inventorymanagement.models.CategoryOfGridView;
+import com.example.inventorymanagement.models.OptionsModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,8 +16,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
-    private CustomRecycleAdapter customRecycleAdapter;
-    private List<CategoryOfGridView> categories;
+    private List<OptionsModel> options;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,13 +26,14 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.categoryRecyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        categories = new ArrayList<>();
-        categories.add(new CategoryOfGridView(R.drawable.accounting, "Inventory"));
-        categories.add(new CategoryOfGridView(R.drawable.loan, "Purchases"));
-        categories.add(new CategoryOfGridView(R.drawable.salary, "Sales"));
-        categories.add(new CategoryOfGridView(R.drawable.portfolio, "Stock"));
+        options = new ArrayList<>();
+        options.add(new OptionsModel(R.drawable.accounting, "Memo"));
+        options.add(new OptionsModel(R.drawable.loan, "Purchases"));
+        options.add(new OptionsModel(R.drawable.salary, "Sales"));
+        options.add(new OptionsModel(R.drawable.portfolio, "Stock"));
+        options.add(new OptionsModel(R.drawable.add_product, "Products"));
 
-        CustomRecycleAdapter customGridViewAdapter = new CustomRecycleAdapter(categories);
+        CustomRecycleAdapter customGridViewAdapter = new CustomRecycleAdapter(options);
         mRecyclerView.setAdapter(customGridViewAdapter);
     }
 }
