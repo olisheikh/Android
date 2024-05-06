@@ -1,6 +1,6 @@
 package com.example.inventorymanagement.adapter;
 
-import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,50 +8,53 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.inventorymanagement.fragment.OptionsOfCategoryFrag;
-import com.example.inventorymanagement.models.CategoryOfGridView;
 import com.example.inventorymanagement.R;
+import com.example.inventorymanagement.models.OptionsModel;
 
 import java.util.List;
 
 public class CustomRecycleAdapter extends RecyclerView.Adapter<CustomRecycleAdapter.ViewHolder> {
 
-    private List<CategoryOfGridView> categories;
+    private List<OptionsModel> options;
 
-    public CustomRecycleAdapter(List<CategoryOfGridView> categories) {
-        this.categories = categories;
+    public CustomRecycleAdapter(List<OptionsModel> options) {
+        this.options = options;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_grid, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.category_recycler_view, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public int getItemCount() {
-        return categories.size();
+        return options.size();
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
-        CategoryOfGridView categoryOfGridView = categories.get(position);
-        viewHolder.txtView.setText(categoryOfGridView.getCategoryName());
-        viewHolder.imgView.setImageResource(categoryOfGridView.getImgSource());
+        OptionsModel currentOption = options.get(position);
+
+        /*
+        * Calling the function to set different background color
+        * */
+        recyclerViewBackground(viewHolder, position);
+        /*
+        * Calling text & image view to set the text & image from dataset
+        * */
+        viewHolder.txtView.setText(currentOption.getOptionsDescription());
+        viewHolder.imgView.setImageResource(currentOption.getOptionsImgSource());
 
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView txtView;
         ImageView imgView;
-        CardView cdView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -60,4 +63,15 @@ public class CustomRecycleAdapter extends RecyclerView.Adapter<CustomRecycleAdap
         }
     }
 
+    /*
+    * Function which gonna change the background of the view(itemView) according
+    * to their position
+    * */
+    public static void recyclerViewBackground(ViewHolder viewHolder, int pos) {
+        if (pos % 2 == 0) {
+            viewHolder.itemView.setBackgroundColor(Color.parseColor("#E0E78A"));
+        } else {
+            viewHolder.itemView.setBackgroundColor(Color.parseColor("#C3FF43"));
+        }
+    }
 }
