@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bodyColor">
+
+    <EditText
+        android:id="@+id/allItemsToBeSelected"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/box_shape"
+        android:hint="Select Item"
+        android:textColorHint="@color/hintColor"
+        android:padding="10dp"
+        android:layout_margin="10dp"/>
+    <ListView
+        android:id="@+id/listOfAllItemToBeSelected"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>

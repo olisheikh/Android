@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         options.add(new OptionsModel(R.drawable.portfolio, "Stock"));
         options.add(new OptionsModel(R.drawable.add_product, "Products"));
 
-        CustomRecycleAdapter customGridViewAdapter = new CustomRecycleAdapter(options);
+        CustomRecycleAdapter customGridViewAdapter = new CustomRecycleAdapter(MainActivity.this, options);
         mRecyclerView.setAdapter(customGridViewAdapter);
     }
 }
