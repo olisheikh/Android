@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/bodyColor">
+    android:background="#404E9D">
 
     <EditText
         android:id="@+id/allItemsToBeSelected"
@@ -13,6 +13,7 @@
         android:hint="Select Item"
         android:textColorHint="@color/hintColor"
         android:padding="10dp"
+        android:textColor="@color/black"
         android:layout_margin="10dp"/>
     <ListView
         android:id="@+id/listOfAllItemToBeSelected"

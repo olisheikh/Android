@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.inventorymanagement.R;
 import com.example.inventorymanagement.models.OptionsModel;
+import com.example.inventorymanagement.view.ItemPurchased;
 import com.example.inventorymanagement.view.MemoActivity;
 import com.example.inventorymanagement.view.ProductListActivity;
 
@@ -96,7 +97,11 @@ public class CustomRecycleAdapter extends RecyclerView.Adapter<CustomRecycleAdap
         if (currentOption.getOptionsDescription().equals("Products")) {
             Intent productListIntent = new Intent(context, ProductListActivity.class);
             context.startActivity(productListIntent);
-        } else if (currentOption.getOptionsDescription().equals("Memo")) {
+        } else if (currentOption.getOptionsDescription().equals("Purchases")) {
+            Intent purchaseIntent = new Intent(context, ItemPurchased.class);
+            context.startActivity(purchaseIntent);
+        }
+        else if (currentOption.getOptionsDescription().equals("Memo")) {
             Intent memoIntent = new Intent(context, MemoActivity.class);
             context.startActivity(memoIntent);
         }

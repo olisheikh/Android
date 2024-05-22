@@ -2,16 +2,19 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/categoryRecyclerView"
+    android:id="@+id/categoryCardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="10dp"
     android:layout_margin="10dp"
     app:cardCornerRadius="8dp"
     app:cardElevation="4dp">
+
     <LinearLayout
+        android:id="@+id/categoryRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
         android:orientation="vertical">
 
         <ImageView
@@ -30,5 +33,6 @@
             android:textStyle="bold"
             android:textColor="@color/black"
             android:fontFamily="sans-serif-black"/>
+
     </LinearLayout>
 </androidx.cardview.widget.CardView>

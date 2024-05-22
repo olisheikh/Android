@@ -40,15 +40,14 @@ public class ProductListActivity extends AppCompatActivity {
         productName = findViewById(R.id.productName);
         productQuantity = findViewById(R.id.productQuantity);
 
-        if (databaseHelper.productsDao().getAllProducts() != null) {
-            databaseHelper.productsDao().getAllProducts().observe(this, new Observer<List<Products>>() {
-                @Override
-                public void onChanged(List<Products> pro) {
-                    ProductsAdapter proAdapter = new ProductsAdapter(ProductListActivity.this, pro, databaseHelper);
-                    productListRecyclerView.setAdapter(proAdapter);
-                }
-            });
-        }
+        databaseHelper.productsDao().getAllProducts().observe(this, new Observer<List<Products>>() {
+            @Override
+            public void onChanged(List<Products> pro) {
+                ProductsAdapter proAdapter = new ProductsAdapter(ProductListActivity.this, pro, databaseHelper);
+                productListRecyclerView.setAdapter(proAdapter);
+            }
+        });
+
        saveBtn.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
@@ -57,13 +56,6 @@ public class ProductListActivity extends AppCompatActivity {
                Products products = new Products(name + " " + quantity);
 
                databaseHelper.productsDao().addNewProduct(products);
-               databaseHelper.productsDao().getAllProducts().observe(ProductListActivity.this, new Observer<List<Products>>() {
-                   @Override
-                   public void onChanged(List<Products> products) {
-                       ProductsAdapter adapter = new ProductsAdapter(ProductListActivity.this, products,databaseHelper);
-                       productListRecyclerView.setAdapter(adapter);
-                   }
-               });
            }
        });
     }
