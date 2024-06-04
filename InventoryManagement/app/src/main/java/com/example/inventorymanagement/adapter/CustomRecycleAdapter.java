@@ -18,6 +18,8 @@ import com.example.inventorymanagement.models.OptionsModel;
 import com.example.inventorymanagement.view.ItemPurchased;
 import com.example.inventorymanagement.view.MemoActivity;
 import com.example.inventorymanagement.view.ProductListActivity;
+import com.example.inventorymanagement.view.SalesActivity;
+import com.example.inventorymanagement.view.StockActivity;
 
 import java.util.List;
 
@@ -46,11 +48,6 @@ public class CustomRecycleAdapter extends RecyclerView.Adapter<CustomRecycleAdap
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
         OptionsModel currentOption = options.get(position);
-
-        /*
-        * Calling the function to set different background color
-        * */
-        recyclerViewBackground(viewHolder, position);
 
         /*
         * Calling the function to set action on click on the menu
@@ -85,13 +82,6 @@ public class CustomRecycleAdapter extends RecyclerView.Adapter<CustomRecycleAdap
     * Function which gonna change the background of the view(itemView) according
     * to their position
     * */
-    public static void recyclerViewBackground(ViewHolder viewHolder, int pos) {
-        if (pos % 2 == 0) {
-            viewHolder.itemView.setBackgroundColor(Color.parseColor("#84ABCA"));
-        } else {
-            viewHolder.itemView.setBackgroundColor(Color.parseColor("#C5E1F6"));
-        }
-    }
 
     public static void optionsClicked(Context context, OptionsModel currentOption) {
         if (currentOption.getOptionsDescription().equals("Products")) {
@@ -104,6 +94,12 @@ public class CustomRecycleAdapter extends RecyclerView.Adapter<CustomRecycleAdap
         else if (currentOption.getOptionsDescription().equals("Memo")) {
             Intent memoIntent = new Intent(context, MemoActivity.class);
             context.startActivity(memoIntent);
+        } else if (currentOption.getOptionsDescription().equals("Sales")) {
+            Intent salesIntent = new Intent(context, SalesActivity.class);
+            context.startActivity(salesIntent);
+        } else if (currentOption.getOptionsDescription().equals("Stock")) {
+            Intent stockIntent = new Intent(context, StockActivity.class);
+            context.startActivity(stockIntent);
         }
     }
 }

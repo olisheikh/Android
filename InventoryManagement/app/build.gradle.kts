@@ -1,5 +1,8 @@
 plugins {
     alias(libs.plugins.androidApplication)
+    //firebase
+    //id("com.android.application")
+    //id("com.google.gms.google-services")
 }
 
 android {
@@ -50,7 +53,7 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
 
     // newly added
-    implementation("com.airbnb.android:lottie:6.4.0")
+   // implementation("com.airbnb.android:lottie:6.4.0")
 
     // room database
     val room_version = "2.6.1"
@@ -61,5 +64,8 @@ dependencies {
     // pdf
     implementation("com.itextpdf:itext7-core:7.0.2")
 
+    // firebase
+    //implementation(platform("com.google.firebase:firebase-bom:33.1.0"))
+   // implementation("com.google.firebase:firebase-analytics")
 
 }

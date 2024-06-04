@@ -19,7 +19,6 @@ import android.widget.Toast;
 
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -29,9 +28,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.inventorymanagement.R;
 import com.example.inventorymanagement.adapter.SelectedItemRecycler;
 import com.example.inventorymanagement.db.DatabaseHelper;
-import com.example.inventorymanagement.models.ItemSold;
+import com.example.inventorymanagement.models.CustomersInfoWithItems;
 import com.example.inventorymanagement.models.Products;
 import com.example.inventorymanagement.models.SelectedItem;
+import com.example.inventorymanagement.models.Stock;
 import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.io.source.ByteArrayOutputStream;
 import com.itextpdf.kernel.color.Color;
@@ -51,34 +51,75 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
 public class MemoActivity extends AppCompatActivity {
-
+    /*
+    * Declaration of all fields
+    * */
+    TextView invoiceNum, memoDate;
     EditText customerName, customerNumber;
     Button savePrintBtn, selectItemBtn, totalBtn;
     Bitmap headerImg, scaledBmp;
     Date date;
-
     DatabaseHelper databaseHelper;
     DateFormat dateFormat;
     List<SelectedItem> selectedItems;
     RecyclerView recyclerView;
     double showTotalBtn = 0;
+    String invoiceNumber;
 
+    /*-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memo);
 
+        /*
+        * Initialization of the fields
+        * */
         customerName = findViewById(R.id.customerName);
+        databaseHelper = DatabaseHelper.getDB(this);
+
+        /*
+        * Taking customer's mobile number
+        * */
         customerNumber = findViewById(R.id.customerNumber);
+        customerNumber.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+
+            }
+            public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+
+            }
+            public void afterTextChanged(Editable editable) {
+                Random random = new Random();
+                String invoiceNumber2 = customerNumber.getText().toString() + (random.nextInt(100 - 1 + 1) - 1);
+                invoiceNumber = invoiceNumber2;
+                invoiceNum.setText(invoiceNumber2.toString());
+            }
+        });
+
+        invoiceNum = findViewById(R.id.invoiceNum);
+        memoDate = findViewById(R.id.memoDate);
+        /*
+        * Setting the date in the header of the memo
+        * */
+        Calendar cd = Calendar.getInstance();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMMM, yyyy");
+        memoDate.setText(simpleDateFormat.format(cd.getTime()));
+
+        /*
+        * Setting the invoice number in the header of the memo
+        * */
         savePrintBtn = findViewById(R.id.savePrintBtn);
         selectItemBtn = findViewById(R.id.selectItem);
         recyclerView = findViewById(R.id.customerSelectedItems);
@@ -106,9 +147,40 @@ public class MemoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try {
-                    createPdf(selectedItems);
+                    long invoiceNumToSave = Integer.parseInt(invoiceNum.getText().toString());
+                    Date dateOfMemo = simpleDateFormat.parse(memoDate.getText().toString());
+                    String customerNameStr = customerName.getText().toString();
+                    String customerNumberStr = customerNumber.getText().toString();
+                    double customerTotal = Double.parseDouble(totalBtn.getText().toString());
+
+                    CustomersInfoWithItems customersInfoWithItems = new CustomersInfoWithItems(
+                            customerNameStr,
+                            customerNumberStr,
+                            invoiceNumToSave,
+                            cd.getTime(),
+                            customerTotal
+                    );
+
+                    long cusId = databaseHelper.customersDao().insertCustomer(customersInfoWithItems);
+                    for (int i = 0; i < selectedItems.size(); i++) {
+                        selectedItems.get(i).setCustomerId(cusId);
+                        selectedItems.get(i).setPurchasedDate(cd.getTime());
+                        databaseHelper.selectedItemDao().insertSelectedItem(selectedItems.get(i));
+
+                        Stock tempStock = databaseHelper.stockDao().retrieveAllAvailableProductByProductName(selectedItems.get(i).getItemName());
+
+                        if (tempStock != null) {
+                            int tempQuantity = selectedItems.get(i).getQuantity();
+                            tempStock.setProductAvailable(tempStock.getProductAvailable() - tempQuantity);
+                            databaseHelper.stockDao().updateItemInStock(tempStock);
+                        }
+                    }
+                    createPdf(selectedItems, invoiceNumber);
+
                 } catch (FileNotFoundException error) {
                     error.printStackTrace();
+                } catch (ParseException e) {
+                    throw new RuntimeException(e);
                 }
             }
         });
@@ -125,7 +197,6 @@ public class MemoActivity extends AppCompatActivity {
         Dialog selectItemDialog = new Dialog(MemoActivity.this);
 
         // Initializing database
-        databaseHelper = DatabaseHelper.getDB(this);
 
         // Retrieving all product's name
         LiveData<List<Products>> liveData = databaseHelper.productsDao().getAllProducts();
@@ -232,12 +303,41 @@ public class MemoActivity extends AppCompatActivity {
                 showTotalBtn += tempTotal;
                 totalBtn.setText(showTotalBtn + "");
 
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMMM, yyyy");
+                Date tempDate;
+                try {
+                    tempDate = simpleDateFormat.parse(memoDate.getText().toString());
+                } catch (ParseException e) {
+                    throw new RuntimeException(e);
+                }
+
+                /*
+                * Getting data from different fields
+                * */
+                String nameTemp = selectTV.getText().toString();
+                int quantityTemp = Integer.parseInt(quantityOfItem.getText().toString());
+                double priceTemp = Double.parseDouble(priceOfItem.getText().toString());
+                boolean isSame = false;
+
+                if (!selectedItems.isEmpty()) {
+                    for (int i = 0; i < selectedItems.size(); i++) {
+                        if (selectedItems.get(i).getItemName().equalsIgnoreCase(nameTemp)) {
+                            selectedItems.get(i).setQuantity(selectedItems.get(i).getQuantity() + quantityTemp);
+                            selectedItems.get(i).setTotal(selectedItems.get(i).getTotal() + tempTotal);
+                            isSame = true;
+                            break;
+                        }
+                    }
+                }
+                if (!isSame) {
                 selectedItems.add(new SelectedItem(
-                        selectTV.getText().toString(),
-                        Integer.parseInt(quantityOfItem.getText().toString()),
-                        Double.parseDouble(priceOfItem.getText().toString()),
-                        tempTotal
-                ));
+                        nameTemp,
+                        quantityTemp,
+                        priceTemp,
+                        tempTotal,
+                        Long.parseLong(invoiceNum.getText().toString()),
+                        tempDate
+                ));}
 
                 SelectedItemRecycler selectedItemRecycler = new SelectedItemRecycler(selectedItems, MemoActivity.this);
                 recyclerView.setAdapter(selectedItemRecycler);
@@ -281,11 +381,7 @@ public class MemoActivity extends AppCompatActivity {
     /*
     * Create the create pdf file to show the memo
     * */
-    public void createPdf(List<SelectedItem> itemSolds) throws FileNotFoundException{
-
-        Random random = new Random();
-        String invoiceNumber = customerNumber.getText().toString() + (random.nextInt(100 - 1 + 1) - 1);
-
+    public void createPdf(List<SelectedItem> itemSolds, String invoiceNumber) throws FileNotFoundException{
         /*
         * Setting color of the tab and body of the receipt
         * */

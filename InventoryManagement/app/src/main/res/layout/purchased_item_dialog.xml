@@ -36,7 +36,8 @@
         android:textColor="@color/black"
         android:textColorHint="@color/hintColor"
         android:background="@drawable/box_shape"
-        android:layout_margin="10dp"/>
+        android:layout_margin="10dp"
+        android:inputType="number"/>
     <EditText
         android:id="@+id/priceOfSelectedItemETV"
         android:layout_width="match_parent"
@@ -46,7 +47,8 @@
         android:textColor="@color/black"
         android:textColorHint="@color/hintColor"
         android:background="@drawable/box_shape"
-        android:layout_margin="10dp"/>
+        android:layout_margin="10dp"
+        android:inputType="number"/>
 
     <TextView
         android:id="@+id/totalOfSelectedProductNameTV"

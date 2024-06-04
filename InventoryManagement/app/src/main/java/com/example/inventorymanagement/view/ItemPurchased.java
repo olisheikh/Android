@@ -29,6 +29,7 @@ import com.example.inventorymanagement.adapter.PurchasedItemAdapter;
 import com.example.inventorymanagement.db.DatabaseHelper;
 import com.example.inventorymanagement.models.Products;
 import com.example.inventorymanagement.models.PurchasedItems;
+import com.example.inventorymanagement.models.Stock;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
@@ -391,6 +392,7 @@ public class ItemPurchased extends AppCompatActivity {
                                 long tempQuantity = item.getQuantity() + newPurchasedItem.getQuantity();
                                 item.setQuantity(tempQuantity);
                                 databaseHelper.purchasedItemDao().updatePurchasedItem(item);
+
                                 isPresent = true;
                                 break;
                             }
@@ -398,9 +400,22 @@ public class ItemPurchased extends AppCompatActivity {
                         if (!isPresent) {
                             databaseHelper.purchasedItemDao().insertPurchasedItem(newPurchasedItem);
                         }
+
                         addPurchasedValueDialog.dismiss();
+
+                        Stock stock = databaseHelper.stockDao().retrieveAllAvailableProductByProductName(newPurchasedItem.getProductName());
+                        int tempQuantity = (int) newPurchasedItem.getQuantity();
+                        if (stock != null) {
+                            stock.setProductAvailable(stock.getProductAvailable() + tempQuantity);
+                            databaseHelper.stockDao().updateItemInStock(stock);
+                        } else {
+                            Stock stock1 = new Stock(newPurchasedItem.getProductName(), tempQuantity);
+                            databaseHelper.stockDao().insertItemInStock(stock1);
+                        }
                     }
         });
+
+
 
         // Set onClickListener for cancel button
         purchasedItemCancelBtn.setOnClickListener(new View.OnClickListener() {
