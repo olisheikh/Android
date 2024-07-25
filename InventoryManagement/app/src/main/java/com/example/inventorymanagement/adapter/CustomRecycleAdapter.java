@@ -84,22 +84,22 @@ public class CustomRecycleAdapter extends RecyclerView.Adapter<CustomRecycleAdap
     * */
 
     public static void optionsClicked(Context context, OptionsModel currentOption) {
-        if (currentOption.getOptionsDescription().equals("Products")) {
-            Intent productListIntent = new Intent(context, ProductListActivity.class);
-            context.startActivity(productListIntent);
-        } else if (currentOption.getOptionsDescription().equals("Purchases")) {
-            Intent purchaseIntent = new Intent(context, ItemPurchased.class);
-            context.startActivity(purchaseIntent);
-        }
-        else if (currentOption.getOptionsDescription().equals("Memo")) {
-            Intent memoIntent = new Intent(context, MemoActivity.class);
-            context.startActivity(memoIntent);
-        } else if (currentOption.getOptionsDescription().equals("Sales")) {
-            Intent salesIntent = new Intent(context, SalesActivity.class);
-            context.startActivity(salesIntent);
-        } else if (currentOption.getOptionsDescription().equals("Stock")) {
-            Intent stockIntent = new Intent(context, StockActivity.class);
-            context.startActivity(stockIntent);
-        }
+//        if (currentOption.getOptionsDescription().equals("Products")) {
+//            Intent productListIntent = new Intent(context, ProductListActivity.class);
+//            context.startActivity(productListIntent);
+//        } else if (currentOption.getOptionsDescription().equals("Purchases")) {
+//            Intent purchaseIntent = new Intent(context, ItemPurchased.class);
+//            context.startActivity(purchaseIntent);
+//        }
+//        else if (currentOption.getOptionsDescription().equals("Memo")) {
+//            Intent memoIntent = new Intent(context, MemoActivity.class);
+//            context.startActivity(memoIntent);
+//        } else if (currentOption.getOptionsDescription().equals("Sales")) {
+//            Intent salesIntent = new Intent(context, SalesActivity.class);
+//            context.startActivity(salesIntent);
+//        } else if (currentOption.getOptionsDescription().equals("Stock")) {
+//            Intent stockIntent = new Intent(context, StockActivity.class);
+//            context.startActivity(stockIntent);
+//        }
     }
 }

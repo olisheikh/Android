@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,10 +16,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.inventorymanagement.R;
+import com.example.inventorymanagement.adapter.ProductClickListener;
 import com.example.inventorymanagement.adapter.ProductsAdapter;
 import com.example.inventorymanagement.db.DatabaseHelper;
 import com.example.inventorymanagement.models.Products;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductListActivity extends AppCompatActivity {
@@ -27,6 +30,8 @@ public class ProductListActivity extends AppCompatActivity {
     RecyclerView productListRecyclerView;
     Button saveBtn;
     EditText productName, productQuantity;
+
+    boolean isAdded = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,9 +58,29 @@ public class ProductListActivity extends AppCompatActivity {
            public void onClick(View view) {
                String name = productName.getText().toString();
                String quantity = productQuantity.getText().toString();
-               Products products = new Products(name + " " + quantity);
+               String productNameInDB = name + " " + quantity;
+               Products products = new Products(productNameInDB);
 
-               databaseHelper.productsDao().addNewProduct(products);
+               productName.setText("");
+               productQuantity.setText("");
+
+               List<Products> productsList = databaseHelper.productsDao().getAllProductsWithoutLiveData();
+
+               for(int i = 0; i < productsList.size(); i++) {
+                   if(productsList.get(i).getProductName().toLowerCase().replace(" ","").equals(productNameInDB.toLowerCase().replace(" ", ""))) {
+                       Toast.makeText(ProductListActivity.this, "Product is already added", Toast.LENGTH_SHORT).show();
+                        isAdded = true;
+                        break;
+                   }
+               }
+
+               if (!isAdded) {
+                   databaseHelper.productsDao().addNewProduct(products);
+                   Toast.makeText(ProductListActivity.this, "New Product is added", Toast.LENGTH_SHORT).show();
+                   isAdded = false;
+               } else {
+                   isAdded = false;
+               }
            }
        });
     }

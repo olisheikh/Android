@@ -5,13 +5,13 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="@drawable/background_design"
     tools:context=".activity.SplashActivity">
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/rupali"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:src="@drawable/rupali_logo"
         android:contentDescription="@string/splash_screen_description"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

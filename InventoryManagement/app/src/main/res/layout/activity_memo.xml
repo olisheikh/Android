@@ -5,15 +5,14 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bodyColor"
+    android:background="@drawable/background_design"
     tools:context=".view.MemoActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/memoToolBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/tabColor"
-        android:textSize="32sp"
+        android:background="@drawable/toolbar_design"
         app:tabTextColor="@color/black"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

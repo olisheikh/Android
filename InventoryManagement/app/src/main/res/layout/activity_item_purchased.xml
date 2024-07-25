@@ -5,14 +5,14 @@
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/bodyColor"
+        android:background="@drawable/background_design"
         tools:context=".view.ItemPurchased">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/purchasesToolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#03A9F4"
+            android:background="@drawable/toolbar_design"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent">
@@ -22,7 +22,7 @@
                 android:text="Purchases"
                 android:textAllCaps="true"
                 android:textStyle="bold"
-                android:textSize="28sp"
+                android:textSize="24sp"
                 android:textColor="@color/black"
                 android:gravity="center"/>
         </androidx.appcompat.widget.Toolbar>
@@ -30,7 +30,7 @@
             android:id="@+id/purchasesDateShowingTab"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#D3C4F4"
+            android:background="@drawable/date_tab_layout_design"
             android:padding="10dp"
             app:layout_constraintTop_toBottomOf="@id/purchasesToolbar"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -63,7 +63,7 @@
             android:id="@+id/purchasesTabletTab"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="#D3C4F4"
+            android:background="@drawable/date_tab_layout_design"
             app:tabIndicatorColor="@color/white"
             app:tabTextColor="@color/black"
             app:layout_constraintTop_toBottomOf="@id/purchasesDateShowingTab"

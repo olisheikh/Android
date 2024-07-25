@@ -19,7 +19,7 @@ import com.example.inventorymanagement.models.PurchasedItems;
 import com.example.inventorymanagement.models.SelectedItem;
 import com.example.inventorymanagement.models.Stock;
 
-@Database(entities = {Products.class, PurchasedItems.class, CustomersInfoWithItems.class, SelectedItem.class, Stock.class}, exportSchema = false, version = 30)
+@Database(entities = {Products.class, PurchasedItems.class, CustomersInfoWithItems.class, SelectedItem.class, Stock.class}, exportSchema = false, version = 34)
 @TypeConverters({DateTypeConverter.class})
 public abstract class DatabaseHelper extends RoomDatabase {
 

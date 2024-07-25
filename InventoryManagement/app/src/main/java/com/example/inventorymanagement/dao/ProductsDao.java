@@ -19,6 +19,9 @@ public interface ProductsDao {
     @Query("select * from products_entity where id = :productId")
     Products getProduct(Long productId);
 
+    @Query("select * from products_entity")
+    List<Products> getAllProductsWithoutLiveData();
+
     @Insert
     void addNewProduct(Products product);
 

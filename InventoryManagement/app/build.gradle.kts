@@ -42,6 +42,7 @@ android {
 }
 
 
+
 dependencies {
 
     implementation(libs.appcompat)
@@ -67,5 +68,13 @@ dependencies {
     // firebase
     //implementation(platform("com.google.firebase:firebase-bom:33.1.0"))
    // implementation("com.google.firebase:firebase-analytics")
+
+    // bluetooth connectivity
+    implementation ("com.itextpdf:itext7-core:7.1.15") // iText 7 library
+    implementation ("com.itextpdf:io:7.1.15")         // iText IO
+    implementation ("com.itextpdf:layout:7.1.15")      // iText Layout
+
+   // implementation ("com.github.barteksc:android-pdf-viewer:3.2.0")
+    // Connection of firebase database.
 
 }
