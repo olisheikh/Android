@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/bodyColor"
+    android:padding="15dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Product's Details"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:hint="Select Date"
+        android:textColorHint="@color/black">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/datePicker"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/box_shape"
+            android:focusable="false"
+            android:textColor="@color/black"
+            android:padding="10dp"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/selectPurchasedProductName"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="Product Name"
+        android:textSize="18sp"
+        android:padding="10dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/hintColor"
+        android:background="@drawable/box_shape"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:drawableEnd="@android:drawable/arrow_down_float"/>
+    <EditText
+        android:id="@+id/purchasedItemProductQuantity"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/box_shape"
+        android:hint="Product Quantity"
+        android:inputType="number"
+        android:textColor="@color/black"
+        android:textColorHint="@color/hintColor"
+        android:padding="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/purchasedItemCancel"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_weight=".5"
+            android:text="Cancel"
+            android:background="@drawable/button_shape"
+            android:textColor="@color/black"
+            android:layout_margin="5dp"
+            android:elevation="10dp"/>
+        <Button
+            android:id="@+id/purchasedItemSave"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="Save"
+            android:textColor="@color/black"
+            android:background="@drawable/button_shape"
+            android:layout_weight=".5"
+            android:layout_margin="5dp"
+            android:elevation="10dp"/>
+    </LinearLayout>
+</LinearLayout>

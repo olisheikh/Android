@@ -2,4 +2,7 @@
     <string name="app_name">InventoryManagement</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="splash_screen_description">This is a splash view description</string>
+    <string name="salesTab">Sales</string>
+    <string name="tempDate">27 May, 2024</string>
 </resources>

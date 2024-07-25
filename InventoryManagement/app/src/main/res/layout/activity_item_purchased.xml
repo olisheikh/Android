@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background_design"
+        tools:context=".view.ItemPurchased">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/purchasesToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/toolbar_design"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Purchases"
+                android:textAllCaps="true"
+                android:textStyle="bold"
+                android:textSize="24sp"
+                android:textColor="@color/black"
+                android:gravity="center"/>
+        </androidx.appcompat.widget.Toolbar>
+        <LinearLayout
+            android:id="@+id/purchasesDateShowingTab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/date_tab_layout_design"
+            android:padding="10dp"
+            app:layout_constraintTop_toBottomOf="@id/purchasesToolbar"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent">
+            <ImageView
+                android:id="@+id/purchasesDateDecrementImgView"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/arrow_right"
+                android:rotation="180"
+                android:layout_weight=".1"/>
+            <TextView
+                android:id="@+id/purchasesDateTextView"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="12/05/2024"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:gravity="center"
+                android:layout_weight=".5"/>
+            <ImageView
+                android:id="@+id/purchasesDateIncrementImgView"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/arrow_right"
+                android:layout_weight=".1"/>
+
+        </LinearLayout>
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/purchasesTabletTab"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/date_tab_layout_design"
+            app:tabIndicatorColor="@color/white"
+            app:tabTextColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@id/purchasesDateShowingTab"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent">
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/dailyTab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Daily"
+                app:tabMode="fixed"/>
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/monthly"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Monthly" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/calendar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Calendar" />
+        </com.google.android.material.tabs.TabLayout>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/purchasesAddBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:src="@drawable/add"
+            android:backgroundTint="@color/buttonColor"
+            android:contentDescription="Add New Purchased Item"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/purchasedItemRecyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/purchasesTabletTab" />
+
+    <ImageView
+        android:id="@+id/emptyFolder"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:contentDescription="Empty Folder"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/purchasesDateShowingTab"
+        app:layout_constraintTop_toTopOf="@+id/purchasesToolbar"
+        app:srcCompat="@drawable/empty_folder" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
